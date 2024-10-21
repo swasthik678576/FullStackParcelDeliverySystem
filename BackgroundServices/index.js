@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const cron = require("node-cron");
 const mongoose = require("mongoose");
+const { sendWelcomeEmail } = require("./EmailService/WelcomeEmail");
 dotenv.config();
 
 // DB CONNECTION
@@ -19,7 +20,9 @@ mongoose
 // TASK SCHEDULER
 
 const run = () => {
-  cron.schedule("* * * * * *", () => {});
+  cron.schedule("* * * * * *", () => {
+    sendWelcomeEmail()
+  });
 };
 run();
 
