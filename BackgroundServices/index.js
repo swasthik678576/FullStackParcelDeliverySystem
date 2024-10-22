@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const cron = require("node-cron");
 const mongoose = require("mongoose");
 const { sendWelcomeEmail } = require("./EmailService/WelcomeEmail");
+const { SendParcelPendingEmail } = require("./EmailService/PendingParcel");
+const { SendParcelDeliveredEmail } = require("./EmailService/DeliveredParcel");
 dotenv.config();
 
 // DB CONNECTION
@@ -22,6 +24,8 @@ mongoose
 const run = () => {
   cron.schedule("* * * * * *", () => {
     sendWelcomeEmail()
+    SendParcelPendingEmail()
+    SendParcelDeliveredEmail()
   });
 };
 run();
