@@ -1,5 +1,6 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const Users = () => {
   const rows = [
     { id: 1, col1: "Alice", col2: "Smith" },
@@ -35,9 +36,11 @@ const Users = () => {
     <div className="m-[30px] bg-[#fff] p-[20px]">
       <div className="flex items-center justify-between">
         <h1 className="m-[20px] text-[20px]">All Users</h1>
+        <Link to="/newuser">
         <button className="bg-[#1e1e1e] text-white p-[10px] cursor-pointer">
           New User
         </button>
+        </Link>
       </div>
       <DataGrid rows={rows} columns={columns} checkboxSelection />
     </div>
