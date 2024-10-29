@@ -4,7 +4,7 @@ const {createParcel, getAllParcels, updateParcel, getOneParcel, getUsersParcel, 
 const { verifyToken, verifyTokenAndAuthorization } = require("../middlewares/verifyToken");
 
 // ADD PARCEL
-router.post("/",verifyToken,createParcel)
+router.post("/",createParcel)
 
 // GET ALL PARCELS
 

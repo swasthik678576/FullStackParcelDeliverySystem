@@ -4,15 +4,20 @@ import { DataGrid } from '@mui/x-data-grid';
 
 const Parcels = () => {
   const rows = [
-    { id: 1, col1: "Hello", col2: "World" },
-    { id: 2, col1: "DataGridPro", col2: "is Awesome" },
-    { id: 3, col1: "MUI", col2: "is Amazing" },
-  ];
+    { from: "alice@example.com", to: "bob@example.com", sendername: "Alice", recipientname: "Bob", note: "Meeting at 10 AM" },
+    { from: "charlie@example.com", to: "dave@example.com", sendername: "Charlie", recipientname: "Dave", note: "Project update" },
+    { from: "eve@example.com", to: "frank@example.com", sendername: "Eve", recipientname: "Frank", note: "Lunch tomorrow?" },
+    { from: "grace@example.com", to: "heidi@example.com", sendername: "Grace", recipientname: "Heidi", note: "Report submission" },
+    { from: "ivan@example.com", to: "judy@example.com", sendername: "Ivan", recipientname: "Judy", note: "Happy Birthday!" },
+];
+
 
   const columns = [
-    { field: "col1", headerName: "Column 1", width: 150 },
-    
-    
+    { field: "from", headerName: "From", width: 150 },
+    { field: "date", headerName: "Date", width: 120 },
+    { field: "recipientname", headerName: "Recipient", width: 150 },
+    { field: "to", headerName: "To", width: 150 },
+    { field: "note", headerName: "Note", width: 300 },
   ];
   return (
     <div className="flex flex-col items-center justify-center mt-[3%] mr-[5%] ml-[5%]">
