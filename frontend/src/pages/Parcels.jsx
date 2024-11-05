@@ -1,17 +1,37 @@
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DataGrid } from '@mui/x-data-grid';
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { publicRequest } from "../requestMethods";
 
 const Parcels = () => {
-  const rows = [
-    { from: "alice@example.com", to: "bob@example.com", sendername: "Alice", recipientname: "Bob", note: "Meeting at 10 AM" },
-    { from: "charlie@example.com", to: "dave@example.com", sendername: "Charlie", recipientname: "Dave", note: "Project update" },
-    { from: "eve@example.com", to: "frank@example.com", sendername: "Eve", recipientname: "Frank", note: "Lunch tomorrow?" },
-    { from: "grace@example.com", to: "heidi@example.com", sendername: "Grace", recipientname: "Heidi", note: "Report submission" },
-    { from: "ivan@example.com", to: "judy@example.com", sendername: "Ivan", recipientname: "Judy", note: "Happy Birthday!" },
-];
+//   const rows = [
+//     { from: "alice@example.com", to: "bob@example.com", sendername: "Alice", recipientname: "Bob", note: "Meeting at 10 AM" },
+//     { from: "charlie@example.com", to: "dave@example.com", sendername: "Charlie", recipientname: "Dave", note: "Project update" },
+//     { from: "eve@example.com", to: "frank@example.com", sendername: "Eve", recipientname: "Frank", note: "Lunch tomorrow?" },
+//     { from: "grace@example.com", to: "heidi@example.com", sendername: "Grace", recipientname: "Heidi", note: "Report submission" },
+//     { from: "ivan@example.com", to: "judy@example.com", sendername: "Ivan", recipientname: "Judy", note: "Happy Birthday!" },
+// ];
 
+const [parcels, setParcels] = useState([]);
+const user = useSelector((state) => state.user);
 
+useEffect(() => {
+  const getParcels = async () => {
+    try {
+      const res = await publicRequest.post("/parcels/me", {
+        email: user.currentUser.email,
+      });
+
+      setParcels(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getParcels();
+}, []);
   const columns = [
     { field: "from", headerName: "From", width: 150 },
     { field: "date", headerName: "Date", width: 120 },
@@ -28,11 +48,14 @@ const Parcels = () => {
 
         <div className="flex justify-between p-[10px]">
           <span className="text-[18px] text-[#444] ">All Parcels</span>
-          <span className="font-semibold text-[#444] ">Alok Mondala</span>
+          <span className="font-semibold text-[#444] ">{user.currentUser.fullname}</span>
         </div>
 
         <div className="p-3">
-        <DataGrid rows={rows} columns={columns} 
+        <DataGrid 
+        rows={parcels} 
+        getRowId={(row) => row._id}
+        columns={columns} 
         checkboxSelection
         />
         </div>
